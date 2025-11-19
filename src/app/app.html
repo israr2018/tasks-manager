@@ -1,5 +1,24 @@
-<app-header />
-<main>
-  <app-users-list (selectedUser)="onUserSelected($event)" />
+<app-header></app-header>
 
+<main class="p-4">
+  <app-users-list
+    (selectedUser)="onUserSelected($event)"
+    [users]="allUsers">
+  </app-users-list>
+  <!-- <p>{{selectedUser?.name}}</p> -->
+
+  <div class="mt-4">
+    <h2 *ngIf="selectedUser">Tasks for {{ selectedUser?.name }}:</h2>
+    <h2 *ngIf="!selectedUser">All Tasks:</h2>
+
+    <ul *ngIf="filteredTasks.length > 0; else noTasks">
+      <li *ngFor="let task of filteredTasks">
+        {{ task.name }} <span *ngIf="task.completed">(Completed)</span>
+      </li>
+    </ul>
+
+    <ng-template #noTasks>
+      <p>No tasks available.</p>
+    </ng-template>
+  </div> 
 </main>

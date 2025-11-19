@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User, UserType } from '../user/user';
-import { USERS } from '../data/users.data';
+import { USERS } from '../data/app.data';
 
 @Component({
   selector: 'app-users-list',
@@ -10,13 +10,16 @@ import { USERS } from '../data/users.data';
   styleUrl: './users-list.scss',
 })
 export class UsersList {
-  @Output() userSelected = new EventEmitter<UserType>();
+  @Output() selectedUser = new EventEmitter<UserType>();
   @Input() users: UserType[] = USERS;
+ 
   
 
-  recieveSelectedUser(user:UserType){
+  onRecieveingSelectedUser(user:UserType){
     console.log(`user====>${user}`);
     // this.userSelected.emit(user);
+    
+    this.selectedUser.emit(user);
 
   }
 
